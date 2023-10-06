@@ -1,0 +1,9 @@
+/nbproject/private/
+/public_html/static/upload/
+/logs/
+/.vscode/
+composer.lock
+/vendor/
+/logs/
+/.idea/
+

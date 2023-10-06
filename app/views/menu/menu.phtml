@@ -1,0 +1,54 @@
+<style>
+    .flex{
+        display: flex;
+    }
+    .justify-content-center{
+        justify-content: center;
+    }
+    .page-content{
+        padding-bottom: 0px !important;
+    }
+</style>
+<div class="page-content header-clear-medium">
+
+    <div class="card card-style" >
+        <div class="content">
+            <div class="flex justify-content-center mb-3">
+                <h1 class="text-uppercase font-28"><?= $store["name"]?></h3>
+            </div>
+
+            <div class="flex gap-2 font-18">
+                <article id="map-marker-alt">
+                    <div class="relative"><span class="fa-fw select-all fas "></span></div>
+                </article>
+                <span ><?= $store["address"]?>, <?= $store["ward"]?>, <?= $store["district"]?>, <?= $store["city"]?></span>
+            </div>
+            <div class="flex align-items-center gap-2 font-18">
+                <i class="fas fa-phone-alt"></i>
+                <span><?= $store["phone"]?></span>
+            </div>
+        </div>
+        <div id="menu-content">
+            <?php foreach ($menu as $m) : ?>
+                <div class="content">
+                    <div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5">
+                        <i class="fa-solid fa-mug-saucer font-33 mt-n3 bg-theme color-black"></i>
+                    </div>
+                    <div class="content mt-n3 mb-0">
+                        <h1 class="text-center font-28" name="name"><?= $m["name"]?></h1>
+                        <?php foreach ($m['items'] as $item) : ?>
+                            <div class="d-flex mb-3">
+                                <div class="align-self-center w-100">
+                                    <h1 class="mb-n2 font-24 font-500 opacity-70" name="name"><?= $item["name"]?></h1>
+                                </div>
+                                <div class="align-self-center ms-auto">
+                                    <h1 class="font-24 mb-0 font-500 opacity-70" name="price"><?= $item["price"]?></h1>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>
