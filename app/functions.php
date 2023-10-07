@@ -85,8 +85,9 @@ function render_error(int $code, string $title) {
         http_response_code($code);
         echo_json(['err' => 1, 'msg' => $title]);
     }
-    http_response_code($code);
-    render_page('_error', ['title' => $title, 'code' => $code]);
+    //http_response_code($code);
+    //render_page('_error', ['title' => $title, 'code' => $code]);
+    redirect(config('url.err'));
 }
 
 function shutdown() {

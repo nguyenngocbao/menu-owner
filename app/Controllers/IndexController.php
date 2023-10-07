@@ -35,59 +35,70 @@ class IndexController {
             'username' => $username]);
     }
 
-    public function indexAction() {
-        $this->_();
-    }
+    public function indexAction($uuid) {
 
-    public function loginAction() {
-        $this->_();
-    }
-
-    public function forgotpassAction() {
-        render_page('forgot_password', ['title' => 'Quên mật khẩu','mess' => ""]);
-    }
-
-
-    public function forgotpasswordAction() {
-        if (!empty(post())) {
-            $r = call_api('user/forgetpassword', [  'phone' => post('phone')]);
-            if ($r) {
-                if ($r['retCode'] == 1){
-                    render_page('confirm_password', ['title' => 'Thay đổi mật khẩu','mess' => "", 'tkOTP' => $r['data']['tkOTP']]);
-                }else{
-                    render_page('forgot_password', ['title' => 'Quên mật khẩu','mess' => "Số điện thoại không tồn tại"]);
-                }
-
-            }
+        if ($account = session('account')) {
+            session_unset();
+            session_destroy();
+            session_write_close();
+            redirect(url('/'.$uuid));
         }else{
-            render_page('forgot_password', ['title' => 'Quên mật khẩu','mess' => "Không được để trống số điện thoại"]);
+            $res = call_api("/verify",['uuid' => $uuid]);
+            if ($res['code'] == 0){
+                redirect(config('url.base'));
+            }else{
+                render_page_layout('otp',compact('uuid'),'_non_layout');
+            }
         }
     }
 
-    public function confirmPasswordAction() {
-        if (!empty(post())) {
+    public function loginAction(){
 
-            $r = call_api('user/confirmpassword', [  'tkOTP' => post('tkOTP'), 'otp' => post('otp'),'password' => sha1(post('pass'))]);
-            if ($r) {
-                if ($r['retCode'] == 1){
-                    $_SESSION['account'] = $r['data'];
-                    if ($login_uri = session('login_uri')) {
-                        unset($_SESSION['login_uri']);
-                        redirect($login_uri);
-                    } else {
-                        redirect(url());
-                    }
-                }else{
-                    render_page('confirm_password', ['title' => 'confirm_password','mess' => "Thông tin không đúng", 'tkOTP' => post('tkOTP')]);
-                }
-            }
+        $uuid = post('uuid');
+        $otp1 = post('otp1');
+        $otp2 = post('otp2');
+        $otp3 = post('otp3');
+        $otp4 = post('otp4');
+
+        $pass = $otp1.$otp2.$otp3.$otp4;
+
+
+        $res = call_api("/verify",['uuid' => $uuid,'pass' => $pass ]);
+
+        if ($res['code'] == 1){
+            $store_id = $res['store_id'];
+            $_SESSION['account'] = ['uuid' => $uuid, 'store_id' => $store_id];
+            $this->storePage($store_id);
+
         }else{
-            render_page('confirm_password', ['title' => 'Thay đổi mật khẩu','mess' => "Không được để trống các trường", 'tkOTP' => post('tkOTP')]);
+            render_page_layout('otp',compact('uuid'),'_non_layout');
         }
+
+
     }
+
+    public function storePage($store_id){
+        $res = call_api("/store/getByAdmin",['id' => $store_id]);
+        $store = [];
+        $menu = [];
+        $city =[];
+        $district = [];
+        $ward =[];
+        if($res['err'] == 1){
+            redirect(config('url.base'));
+        }
+        $store = $res['data']['store'];
+        $menu = $res['data']['menus'];
+        $city = $res['data']['city'];
+        $district = $res['data']['district'];
+        $ward = $res['data']['ward'];
+        render_page('store/store2', compact('store','menu','city', 'district','ward'));
+
+    }
+
 
     public function logoutAction() {
-        call_api('user/logout', ['tkSession' => session('account.tkSession')]);
+        //call_api('user/logout', ['tkSession' => session('account.tkSession')]);
         session_unset();
         session_destroy();
         session_write_close();

@@ -6,7 +6,8 @@ class StoreController
 {
 
     private function _() {
-        $store_id = 1;
+        $store_id = post('stort_id');
+        $uuid = post('uuid');
         $res = call_api("/store/getByAdmin",['id' => $store_id]);
         $store = [];
         $menu = [];
@@ -21,7 +22,7 @@ class StoreController
         $city = $res['data']['city'];
         $district = $res['data']['district'];
         $ward = $res['data']['ward'];
-        render_page('menu/menu2', compact('store','menu','city', 'district','ward'));
+        render_page('store/store2', compact('store','menu','city', 'district','ward'));
 
     }
     public function indexAction() {

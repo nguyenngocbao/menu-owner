@@ -2,7 +2,7 @@
     "name": "trint/emenu",
     "type": "project",
     "scripts": {
-        "run": "php -S localhost:8001 -t public_html"
+        "run": "php -S localhost:8002 -t public_html"
     },
     "require": {
         "php": ">=7.2",

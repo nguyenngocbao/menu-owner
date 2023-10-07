@@ -9,7 +9,7 @@ body {
   font-family: "Roboto", sans-serif !important;
   line-height: 26px !important;
   color: #6c6c6c !important;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -5299,7 +5299,7 @@ input[type=number] {
 }
 
 [data-gradient=body-default] #page, .background-changer .body-default {
-  background-image: linear-gradient(0deg, #f2f2f7, #f2f2f7) !important;
+  background-color: #fffff !important;
 }
 
 .color-plum-light {

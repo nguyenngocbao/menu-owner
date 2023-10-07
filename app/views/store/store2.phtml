@@ -1,0 +1,225 @@
+<style>
+    .page-content{
+        background-color: #ffffff;
+    }
+    .flex{
+        display: flex;
+    }
+    .justify-content-center{
+        justify-content: center;
+    }
+</style>
+<script src="<?= config('view_static') ?>/static/page/store.js?v=<?= time()?>" type="text/javascript"></script>
+<div class="page-content header-clear-medium">
+    <div class="card card-style px-3 pt-1 pb-3">
+        <p class="text-uppercase font-700 color-gray-dark font-10 mb-2">Store Information</p>
+        <div class="d-flex">
+            <div class="align-self-center">
+                <h4 class="ps-2 pt-2"><?= $store["name"]?></h4>
+            </div>
+            <div class="ms-auto align-self-center">
+                <a id="edit-store-btn" class="btn btn-s rounded-sm text-uppercase font-700 border-gray-dark color-theme">Edit</a>
+            </div>
+        </div>
+        <div class="divider mt-3 mb-3"></div>
+
+            <div class="flex gap-2 ">
+                <article id="map-marker-alt">
+                    <div class="relative"><span class="fa-fw select-all fas "></span></div>
+                </article>
+                <span ><?= $store["address"]?>, <?= $store["ward"]?>, <?= $store["district"]?>, <?= $store["city"]?></span>
+            </div>
+
+            <div class="flex align-items-center gap-2 ">
+                <i class="fas fa-phone-alt"></i>
+                <span><?= $store["phone"]?></span>
+            </div>
+    </div>
+    <div class="d-flex px-3 pb-3">
+        <div class="align-self-center">
+            <h4 class="mb-0">Categories</h4>
+            <p class="mt-n1 mb-0">
+                Category Management
+            </p>
+        </div>
+        <div class="align-self-center ms-auto">
+            <a id="add-menu-btn" class="font-12">Add Catelogy</a>
+        </div>
+    </div>
+    <?php foreach ($menu as $m) : ?>
+        <div class="card card-style px-3 pt-1 pb-3">
+            <p class="text-uppercase font-700 color-gray-dark font-10 mb-2"></p>
+            <div class="d-flex">
+                <div class="align-self-center">
+                    <h4 class="ps-2 pt-2"><?= $m["name"] ?></h4>
+                </div>
+                <div class="ms-auto align-self-center">
+                    <a data-id="<?= $m["id"] ?>" data-name="<?= $m["name"] ?>"
+                       class="icon icon-xxs bg-green-dark rounded-m edit-menu-btn"><i class="fa fa-edit"></i></a>
+                    <a data-id="<?= $m["id"] ?>"  style="margin-left: 4px"
+                       class="icon icon-xxs bg-red-dark rounded-m delete-menu-btn"><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+            <div class="divider mt-3 mb-3"></div>
+            <?php foreach ($m['items'] as $item) : ?>
+                <div class="d-flex mb-3">
+                    <div class="align-self-center w-100">
+                        <h1 class="mb-n2 font-16 font-500 opacity-70" name="name"><strong><?= $item["name"] ?></strong></h1>
+                        <h1 class="font-16 mb-0 font-500 opacity-70" name="price"><?= $item["price"] ?></h1>
+                    </div>
+                    <div class="d-flex align-self-center ms-auto">
+                        <a data-id="<?= $item["id"] ?>" data-menu_id="<?= $m["id"] ?>" data-name="<?= $item["name"] ?>" data-price="<?= $item["price"] ?>"
+                           class="icon icon-xxs bg-green-dark rounded-m edit-item-btn"><i class="fa fa-edit"></i></a>
+                        <a data-id="<?= $item["id"] ?>" style="margin-left: 4px"
+                           class="icon icon-xxs bg-red-dark rounded-m delete-item-btn"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            <?php endforeach ?>
+            <div class="divider mb-3"></div>
+            <div class="row mb-0">
+                <a data-id="<?= $m["id"] ?>"  class="btn btn-s rounded-sm text-uppercase font-700 border-gray-dark color-theme add-item-btn">Add Item</a>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
+<button hidden id="open-menu-modal" data-menu="menu-modal"></button>
+<button hidden id="open-item-modal" data-menu="item-modal"></button>
+<button hidden id="open-store-modal" data-menu="store-modal"></button>
+<input id="store_id_filed" value="<?= $store["id"]?>" hidden>
+<div id="menu-modal" class="menu menu-box-bottom menu-box-detached rounded-m" data-menu-effect="menu-over"
+     style="display: block;">
+    <div class="modal-header mt-n1">
+        <h1 id="menu-form-title">Menu</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
+    </div>
+
+    <div class="content mb-0">
+        <form id="menu-form">
+            <input name="store_id" value="<?= $store["id"]?>" hidden>
+            <input hidden name="id" value="0">
+            <input hidden name="sort" value="0">
+            <input hidden name="status" value="1">
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="name"
+                       placeholder="Name">
+                <label for="storeName" class="color-highlight">name</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
+        </form>
+        <button id="add-menu" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 mt-n2 bg-highlight"
+                style="margin: 20px 0px; width: 100%">Submit
+        </button>
+        <!--        </form>-->
+    </div>
+</div>
+
+<div id="item-modal" class="menu menu-box-bottom menu-box-detached rounded-m" data-menu-effect="menu-over"
+     style="display: block;">
+    <div class="modal-header mt-n1">
+        <h1 id="menu-form-title">Item</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
+    </div>
+    <div class="content mb-0">
+        <form id="item-form">
+            <input hidden  name="id" value="0">
+            <input hidden  name="sort" value="1">
+            <input hidden  name="menu_id" value="0">
+            <input hidden  name="status" value="1">
+            <input hidden id="menu-id" name="menu-id" value="0">
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="name"
+                       placeholder="Name">
+                <label for="name" class="color-highlight">Name</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="price"
+                       placeholder="Price">
+                <label for="price" class="color-highlight">Price</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
+        </form>
+        <button id="add-item" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 mt-n2 bg-highlight"
+                style="margin: 20px 0px; width: 100%">Submit
+        </button>
+        <!--        </form>-->
+    </div>
+</div>
+
+<div id="store-modal" class="menu menu-box-bottom menu-box-detached rounded-m" data-menu-effect="menu-over"
+     style="display: block;">
+    <div class="modal-header mt-n1">
+        <h1 id="menu-form-title">Cửa hàng</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
+    </div>
+    <div class="content mb-0">
+        <form id="item-form">
+            <input hidden  name="id" value="0">
+            <input hidden  name="sort" value="1">
+            <input hidden  name="store_type" value="1">
+            <input hidden  name="status" value="1">
+            <input hidden id="menu-id" name="menu-id" value="0">
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="name"
+                       placeholder="Name">
+                <label for="name" class="color-highlight">Name</label>
+
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="phone"
+                       placeholder="Price">
+                <label for="price" class="color-highlight">Phone</label>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="wifi_pass"
+                       placeholder="Price">
+                <label for="price" class="color-highlight">Mật khẩu wifi</label>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <select id="form5">
+                    <option value="default" name="city_id" disabled="" selected="">Chọn thành phố</option>
+                    <?php foreach ($city as $c) : ?>
+                        <option value="<?= $c["id"] ?>"> <?= $c["name"] ?></option>
+                    <?php endforeach ?>
+                </select>
+                <label for="price" class="color-highlight">Thành Phố</label>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <select id="form5">
+                    <option value="default" name="district_id" disabled="" selected="">Chọn Quận</option>
+                    <?php foreach ($district as $c) : ?>
+                        <option value="<?= $c["id"] ?>"> <?= $c["name"] ?></option>
+                    <?php endforeach ?>
+                </select>
+                <label for="price" class="color-highlight">Huyện</label>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <select id="form5">
+                    <option value="default" name="ward_id" disabled="" selected="">Chọn Phường</option>
+                    <?php foreach ($ward as $c) : ?>
+                        <option value="<?= $c["id"] ?>"> <?= $c["name"] ?></option>
+                    <?php endforeach ?>
+                </select>
+                <label for="price" class="color-highlight">Phường</label>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="address"
+                       placeholder="Address">
+                <label for="price" class="color-highlight">Address</label>
+            </div>
+        </form>
+        <button id="add-store" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 mt-n2 bg-highlight"
+                style="margin: 20px 0px; width: 100%">Submit
+        </button>
+        <!--        </form>-->
+    </div>
+</div>
+
+
+

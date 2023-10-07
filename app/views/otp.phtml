@@ -1,0 +1,26 @@
+<div class="page-content pb-0">
+    <div class="card" data-card-height="cover" >
+        <div class="card-top notch-clear">
+
+        </div>
+        <form action="/login" method="post">
+        <div class="card-center">
+            <img src="<?= config('view_static') ?>/static/images/undraw/2.svg" width="200" class="mx-auto">
+            <h1 class="text-center pt-4">Enter One Time Passcode</h1>
+            <p class="text-center font-12 mt-n2 mb-2">Let's verify your account before we proceed.</p>
+            <div class="text-center mb-3 pt-3 pb-2">
+
+                    <input name="uuid" value="<?= $uuid ?>" hidden>
+                    <input name="otp1" class="otp mx-1 text-center font-24 font-900" type="tel" value="●">
+                    <input name="otp2" class="otp mx-1 text-center font-24 font-900" type="tel" value="●">
+                    <input name="otp3" class="otp mx-1 text-center font-24 font-900" type="tel" value="●">
+                    <input name="otp4" class="otp mx-1 text-center font-24 font-900" type="tel" value="●">
+
+            </div>
+            <button  type="submit" data-menu="menu-verified" class="btn btn-highlight rounded-sm btn-m bg-green-dark text-uppercase font-700 mt-4 btn-center-xl">Verify</button>
+            <p class="pt-2 font-11 text-center mb-0">Didn't receive your code? <a href="#">Resend OTP</a>
+            </p></div>
+        </form>
+    </div>
+
+</div>

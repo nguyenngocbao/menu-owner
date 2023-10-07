@@ -38,8 +38,8 @@ class Bootstrap {
                     if (!($controller instanceof IndexController
                     )) {
                         if (!session('account')) {
-                            $_SESSION['login_uri'] = $uri;
-                            redirect(url());
+                            //$_SESSION['login_uri'] = $uri;
+                            redirect(url(config('url.base')));
                         }
                     }
 

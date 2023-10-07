@@ -10,11 +10,12 @@ use App\Controllers\store\MenuController;
 use App\Controllers\store\ItemController;
 
 return [
-    ['GET', '', [IndexController::class, 'index']],
+
     ['GET', '/auth', [IndexController::class, 'auth']],
-    ['GET', '/', [IndexController::class, 'index']],
     ['POST', '/login', [IndexController::class, 'login']],
-    ['GET', '/logout', [IndexController::class, 'logout']],
+    //['GET', '/', [IndexController::class, 'index']],
+    //['POST', '/login', [IndexController::class, 'login']],
+    //['GET', '/logout', [IndexController::class, 'logout']],
 
     ['GET', '/store', [StoreController::class, 'index']],
     ['GET', '/menu', [StoreController::class, 'index']],
@@ -26,4 +27,5 @@ return [
     ['POST', '/item/update', [ItemController::class, 'update']],
     ['POST', '/item/delete', [ItemController::class, 'delete']],
     ['POST', '/item/get', [ItemController::class, 'get']],
+    ['GET', '/[*:uuid]', [IndexController::class, 'index']],
 ];

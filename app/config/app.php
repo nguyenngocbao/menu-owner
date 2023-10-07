@@ -15,5 +15,10 @@ return [
         'url' => 'http://localhost:8777',
         'callee' => 'client-owner',
         'key' => 'client',
+    ],
+    'url' => [
+        'err' => 'http://localhost:8000',
+        'base' => 'http://localhost:8000',
+        'client' => 'http://localhost:8001',
     ]
 ];
