@@ -92,6 +92,7 @@ class IndexController {
         $city = $res['data']['city'];
         $district = $res['data']['district'];
         $ward = $res['data']['ward'];
+        $uuid = session('account')['uuid'];
         render_page('store/store2', compact('store','menu','city', 'district','ward'));
 
     }
