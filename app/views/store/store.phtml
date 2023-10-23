@@ -75,24 +75,29 @@
 <div id="menu-modal" class="menu menu-box-bottom menu-box-detached rounded-m" data-menu-effect="menu-over"
      style="display: block;">
     <div class="modal-header mt-n1">
-        <h1 id="menu-form-title">Menu</h1>
+        <h1 id="menu-form-title">Catelogy</h1>
         <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
     </div>
 
     <div class="content mb-0">
         <form id="menu-form">
             <input name="store_id" value="<?= $store["id"]?>" hidden>
-        <input hidden name="id" value="0">
+            <input hidden name="id" value="0">
             <input hidden name="sort" value="0">
             <input hidden name="status" value="1">
-        <div class="input-style input-style-always-active validate-field mb-4">
-            <input type="text" class="form-control validate-text"  name="name"
-                   placeholder="Name">
-            <label for="storeName" class="color-highlight">name</label>
-            <i class="fa fa-times disabled invalid color-red-dark"></i>
-            <i class="fa fa-check disabled valid color-green-dark"></i>
-            <em>(*)</em>
-        </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="name"
+                       placeholder="Name">
+                <label for="storeName" class="color-highlight">name</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"
+                       placeholder="Description">
+                <label for="storeName" class="color-highlight">Description</label>
+            </div>
         </form>
         <button id="add-menu" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 mt-n2 bg-highlight"
                 style="margin: 20px 0px; width: 100%">Submit
@@ -113,23 +118,35 @@
             <input hidden  name="sort" value="1">
             <input hidden  name="menu_id" value="0">
             <input hidden  name="status" value="1">
-        <input hidden id="menu-id" name="menu-id" value="0">
-        <div class="input-style input-style-always-active validate-field mb-4">
-            <input type="text" class="form-control validate-text"  name="name"
-                   placeholder="Name">
-            <label for="name" class="color-highlight">Name</label>
-            <i class="fa fa-times disabled invalid color-red-dark"></i>
-            <i class="fa fa-check disabled valid color-green-dark"></i>
-            <em>(*)</em>
-        </div>
-        <div class="input-style input-style-always-active validate-field mb-4">
-            <input type="text" class="form-control validate-text"  name="price"
-                   placeholder="Price">
-            <label for="price" class="color-highlight">Price</label>
-            <i class="fa fa-times disabled invalid color-red-dark"></i>
-            <i class="fa fa-check disabled valid color-green-dark"></i>
-            <em>(*)</em>
-        </div>
+            <input hidden id="menu-id" name="menu-id" value="0">
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="name"
+                       placeholder="Name">
+                <label for="name" class="color-highlight">Name</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <select  name="store_type">
+                    <option value="1" selected>Fixed</option>
+                    <option value="2" disabled>Text</option>
+                    <option value="3" disabled>Range</option>
+                    <option value="4" disabled>Menu</option>
+                </select>
+                <label for="price" class="color-highlight">Price Type</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
+            <div class="input-style input-style-always-active validate-field mb-4">
+                <input type="text" class="form-control validate-text"  name="price"
+                       placeholder="Price">
+                <label for="price" class="color-highlight">Price</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(*)</em>
+            </div>
         </form>
         <button id="add-item" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 mt-n2 bg-highlight"
                 style="margin: 20px 0px; width: 100%">Submit
